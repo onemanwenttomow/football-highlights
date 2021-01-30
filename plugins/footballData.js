@@ -1,7 +1,7 @@
 const cache = {};
 export default async function (context, inject) {
-    const FOOTBALLAPI = process.env.FOOTBALLAPI
-    // const { FOOTBALLAPI } = await import("../secrets.json");
+    // const FOOTBALLAPI = process.env.FOOTBALLAPI
+    const { FOOTBALLAPI } = await import("../secrets.json");
  
     
     const headers = {
@@ -42,9 +42,14 @@ export default async function (context, inject) {
 
     async function getTeamsByLeague(leagueId) {
         try {
+            if (leagueId in cache) {
+                console.log("serving from cache");
+                return cache[leagueId];
+            }
             const url =
                 `https://api.football-data.org/v2/competitions/${leagueId}/teams`;
             const { data } = await context.$axios.get(url, headers);
+            cache[leagueId] = data.teams;
             return data.teams;
         } catch (error) {
             return getErrorResponse(error);
