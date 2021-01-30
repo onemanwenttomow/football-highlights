@@ -1,5 +1,10 @@
-export default async function(context, inject) {
-    const { GOOGLEAPI } = await import("../secrets.json");
+export default async function (context, inject) {
+    let secrets =
+        process.env.NODE_ENV === "production"
+            ? process.env
+            : await import("../secrets.json");
+
+    const { GOOGLEAPI } = secrets;
 
     inject("youtubeApi", {
         getHighlightsByQuery
