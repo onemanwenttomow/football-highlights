@@ -2,7 +2,7 @@
     <div>
         <div class="crest-container">
             <div v-for="team in teams" :key="team.id">
-                <nuxt-link :to="'/t/' + team.id">
+                <nuxt-link :to="'/t/' + team.id" no-prefetch>
                     <img :src="team.crestUrl" alt="team.shortName" class="crest">
                 </nuxt-link>
             </div>
