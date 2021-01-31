@@ -26,5 +26,15 @@ exports.handler = async (event, context) => {
             body: JSON.stringify(data.matches)
         };
     }
+
+    if (perform === "getTeamsByLeague") {
+        const url = `https://api.football-data.org/v2/competitions/${id}/teams`;
+        const { data } = await axios.get(url, headers);
+        console.log("data: ", data);
+        return {
+            statusCode: 200,
+            body: JSON.stringify(data.teams)
+        };
+    }
     
 };

@@ -12,15 +12,16 @@
 
 <script>
 export default {
-    async asyncData({ route, error, $footballApi }) {
+    async asyncData({ route, error, $axios }) {
         const leagueId = route.params.league;
         console.log('leagueId: ',leagueId);
-        const teams = await $footballApi.getTeamsByLeague(leagueId);
+        console.log('$axios: ',$axios);
+        const {data} = await $axios.get(`/.netlify/functions/football-data?perform=getTeamsByLeague&id=${leagueId}`);
         // put teams in local storage and check that first....
         // or add caching to footballApi
-        console.log('teams: ',teams);
+        console.log('teams: ',data);
         return {
-            teams
+            teams: data
         };
     },
     // data() {
