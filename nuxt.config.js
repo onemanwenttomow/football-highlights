@@ -30,7 +30,7 @@ export default {
     // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
     plugins: [
         "~/plugins/embedyoutube.client",
-        "~/plugins/footballData",
+        "~/plugins/footballData.client",
         "~/plugins/youtubeApi.client"
     ],
 

@@ -49,7 +49,7 @@ export default {
         // put teams in local storage and check that first....
         // or some other kind of caching...
         console.log('latestResults: ',latestResults);
-        // console.log('teamInfo: ',teamInfo);
+        console.log('teamInfo: ',teamInfo);
         this.latestResults = latestResults?.reverse();
         this.teamInfo = teamInfo
         // return {
