@@ -2,11 +2,12 @@ const cache = {};
 export default async function (context, inject) {
     let FOOTBALLAPI;
     try {
-        const secrets = await import("../secrets.json");
+        const secrets = require("../secrets.json");
         FOOTBALLAPI = secrets.FOOTBALLAPI;
     } catch (error) {
         FOOTBALLAPI = process.env.FOOTBALLAPI
     }
+    // FOOTBALLAPI = process.env.FOOTBALLAPI
 
     const headers = {
         headers: { "X-Auth-Token": FOOTBALLAPI }
