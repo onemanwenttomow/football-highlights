@@ -19,7 +19,8 @@ exports.handler = async (event) => {
         videoDefinition: "high",
         videoDuration: "short",
         videoEmbeddable: "true",
-        videoType: "videoTypeUnspecified"
+        videoType: "videoTypeUnspecified",
+        regionCode: "DE"
     });
     return {
         statusCode: 200,
