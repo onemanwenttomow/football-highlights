@@ -31,9 +31,14 @@ export default async function (context, inject) {
 
     async function getLastFiveResultsByTeam(teamId) {
         try {
+            if (teamId + "last5" in cache) {
+                console.log("serving from cache");
+                return cache[teamId + "last5"].matches;
+            }
             const url =
                 `https://api.football-data.org/v2/teams/${teamId}/matches?limit=5&status=FINISHED`;
             const { data } = await context.$axios.get(url, headers);
+            cache[teamId + "last5"] = data;
             return data.matches;
         } catch (error) {
             return getErrorResponse(error);
@@ -57,6 +62,7 @@ export default async function (context, inject) {
     }
 
     function getErrorResponse(error) {
+        console.log('error: ',error);
         return {
             ok: false,
             status: 500,

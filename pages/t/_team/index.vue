@@ -50,7 +50,7 @@ export default {
         // or some other kind of caching...
         console.log('latestResults: ',latestResults);
         // console.log('teamInfo: ',teamInfo);
-        this.latestResults = latestResults.reverse();
+        this.latestResults = latestResults?.reverse();
         this.teamInfo = teamInfo
         // return {
         //     latestResults: latestResults.reverse(),
