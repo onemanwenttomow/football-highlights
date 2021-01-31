@@ -1,7 +1,7 @@
 const cache = {};
 export default async function (context, inject) {
-    const FOOTBALLAPI = process.env.FOOTBALLAPI
-    // const { FOOTBALLAPI } = await import("../secrets.json");
+    // const FOOTBALLAPI = process.env.FOOTBALLAPI
+    const { FOOTBALLAPI } = await import("../secrets.json");
  
     
     const headers = {
