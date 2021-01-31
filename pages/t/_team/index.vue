@@ -42,8 +42,8 @@ export default {
     async mounted() {
         const teamId = this.$route.params.team;;
         const [response, response2] = await Promise.all([
-            fetch(`/api/football-data?perform=getTeamById&id=${teamId}`),
-            fetch(`/api/football-data?perform=getLastFiveResultsByTeam&id=${teamId}`)
+            fetch(`/.netlify/functions/football-data?perform=getTeamById&id=${teamId}`),
+            fetch(`/.netlify/functions/football-data?perform=getLastFiveResultsByTeam&id=${teamId}`)
         ])
         const [teamInfo, latestResults] = await Promise.all([
             response.json(),
