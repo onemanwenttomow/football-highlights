@@ -12,17 +12,34 @@
 
 <script>
 export default {
-    async asyncData({ route, error, $footballApi }) {
+    // async asyncData({ route, error, $footballApi }) {
+    //     const leagueId = route.params.league;
+    //     console.log('leagueId: ',leagueId);
+    //     const teams = await $footballApi.getTeamsByLeague(leagueId);
+    //     // put teams in local storage and check that first....
+    //     // or add caching to footballApi
+    //     console.log('teams: ',teams);
+    //     return {
+    //         teams
+    //     };
+    // },
+    data() {
+        return {
+            teams: []
+        }
+    },
+    async mounted() {
         const leagueId = route.params.league;
         console.log('leagueId: ',leagueId);
         const teams = await $footballApi.getTeamsByLeague(leagueId);
         // put teams in local storage and check that first....
         // or add caching to footballApi
         console.log('teams: ',teams);
-        return {
-            teams
-        };
-    },
+        this.teams = teams;
+        // return {
+        //     teams
+        // };
+    }
 };
 </script>
 
