@@ -16,12 +16,7 @@ export default {
             },
             { hid: "description", name: "description", content: "" }
         ],
-        link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
-        script: [
-            {
-                src: `https://apis.google.com/js/api.js`
-            }
-        ]
+        link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }]
     },
 
     // Global CSS: https://go.nuxtjs.dev/config-css
@@ -30,8 +25,7 @@ export default {
     // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
     plugins: [
         "~/plugins/embedyoutube.client",
-        "~/plugins/footballData",
-        "~/plugins/youtubeApi.client"
+        "~/plugins/footballData"
     ],
 
     // Auto import components: https://go.nuxtjs.dev/config-components

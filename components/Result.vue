@@ -6,9 +6,9 @@
         <button @click="getHighlights">Get Highlights</button>
         <div v-if="videos.length">
             <youtube
-                :key="videos[0].id.videoId"
+                :key="videos[0].id"
                 :player-vars="{ autoplay: 0 }"
-                :video-id="videos[0].id.videoId"
+                :video-id="videos[0].id"
             />
         </div>
     </div>
@@ -55,10 +55,10 @@ export default {
     methods: {
         async getHighlights() {
             console.log('mounted get videos', this.query, this.date);
-            console.log('this: ',this);
-            const { result } = await this.$youtubeApi.getHighlightsByQuery(this.date, this.query);
-            console.log('result: ',result);
-            this.videos = result.items;
+            const response = await fetch(`/.netlify/functions/youtube-data?date=${this.date}&q=${this.query}`);
+            const results = await response.json();
+            console.log('results: ',results);
+            this.videos = results;
         }
     }
 };
