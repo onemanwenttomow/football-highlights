@@ -19,20 +19,43 @@
 
 <script>
 export default {
-    async asyncData({ route, error, $footballApi }) {
-        const teamId = route.params.team;
+    // async asyncData({ route, error, $footballApi }) {
+    //     const teamId = route.params.team;
+    //     const [teamInfo, latestResults] = await Promise.all([
+    //         $footballApi.getTeamById(teamId),
+    //         $footballApi.getLastFiveResultsByTeam(teamId)
+    //     ])
+    //     // put teams in local storage and check that first....
+    //     // or some other kind of caching...
+    //     console.log('latestResults: ',latestResults);
+    //     // console.log('teamInfo: ',teamInfo);
+    //     return {
+    //         latestResults: latestResults.reverse(),
+    //         teamInfo
+    //     };
+    // },
+    data() {
+        return {
+            teamInfo: {},
+            latestResults: []
+        }
+    },
+    async mounted() {
+        const teamId = this.$route.params.team;
         const [teamInfo, latestResults] = await Promise.all([
-            $footballApi.getTeamById(teamId),
-            $footballApi.getLastFiveResultsByTeam(teamId)
+            this.$footballApi.getTeamById(teamId),
+            this.$footballApi.getLastFiveResultsByTeam(teamId)
         ])
         // put teams in local storage and check that first....
         // or some other kind of caching...
         console.log('latestResults: ',latestResults);
         // console.log('teamInfo: ',teamInfo);
-        return {
-            latestResults: latestResults.reverse(),
-            teamInfo
-        };
+        this.latestResults = latestResults.reverse();
+        this.teamInfo = teamInfo
+        // return {
+        //     latestResults: latestResults.reverse(),
+        //     teamInfo
+        // };
     }
 };
 </script>
