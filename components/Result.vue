@@ -1,7 +1,7 @@
 <template>
     <div>
         <div>
-            {{homeTeam}} {{homeScore}} - {{awayScore}} {{awayTeam}} 
+            {{ homeTeam }} {{ homeScore }} - {{ awayScore }} {{ awayTeam }}
         </div>
         <button @click="getHighlights">Get Highlights</button>
         <div v-if="videos.length">
@@ -19,33 +19,37 @@ export default {
     props: {
         competition: {
             type: String,
-            required: true,
-        }, 
+            required: true
+        },
         homeTeam: {
             type: String,
-            required: true,
+            required: true
         },
         awayTeam: {
             type: String,
-            required: true,
-        }, 
+            required: true
+        },
         homeScore: {
             type: Number,
-            required: true,
+            required: true
         },
         awayScore: {
             type: Number,
-            required: true,
+            required: true
         },
         date: {
             type: String,
-            required: true,
+            required: true
+        },
+        area: {
+            type: String,
+            required: true
         }
-    }, 
+    },
     data() {
         return {
             videos: []
-        }
+        };
     },
     computed: {
         query() {
@@ -54,10 +58,12 @@ export default {
     },
     methods: {
         async getHighlights() {
-            console.log('mounted get videos', this.query, this.date);
-            const response = await fetch(`/.netlify/functions/youtube-data?date=${this.date}&q=${this.query}`);
+            console.log("mounted get videos", this.query, this.date, this.area);
+            const country = this.area.toLowerCase();
+            const url = `/.netlify/functions/youtube-data?date=${this.date}&q=${this.query}&country=${country}`;
+            const response = await fetch(url);
             const results = await response.json();
-            console.log('results: ',results);
+            console.log("results: ", results);
             this.videos = results;
         }
     }

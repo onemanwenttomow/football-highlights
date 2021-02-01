@@ -11,6 +11,7 @@
                 :away-score="result.score.fullTime.awayTeam"
                 :competition="result.competition.name"
                 :date="result.utcDate"
+                :area=teamInfo.area.name
             />
         </div>
     </div>
