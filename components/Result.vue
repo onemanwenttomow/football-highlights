@@ -58,6 +58,7 @@ export default {
     },
     methods: {
         async getHighlights() {
+            // make a request to get all crests, short names and ids for clubs
             console.log("mounted get videos", this.query, this.date, this.area);
             const country = this.area.toLowerCase();
             const url = `/.netlify/functions/youtube-data?date=${this.date}&q=${this.query}&country=${country}`;

@@ -1,0 +1,146 @@
+[
+    {
+        "area": {
+            "id": 2088
+        },
+        "id": 1,
+        "shortName": "1. FC Köln",
+        "crestUrl": "https://crests.football-data.org/1.svg"
+    },
+    {
+        "area": {
+            "id": 2088
+        },
+        "id": 2,
+        "shortName": "Hoffenheim",
+        "crestUrl": "https://crests.football-data.org/2.svg"
+    },
+    {
+        "area": {
+            "id": 2088
+        },
+        "id": 3,
+        "shortName": "Leverkusen",
+        "crestUrl": "https://crests.football-data.org/3.svg"
+    },
+    {
+        "area": {
+            "id": 2088
+        },
+        "id": 4,
+        "shortName": "Dortmund",
+        "crestUrl": "https://crests.football-data.org/4.svg"
+    },
+    {
+        "area": {
+            "id": 2088
+        },
+        "id": 5,
+        "shortName": "Bayern M",
+        "crestUrl": "https://crests.football-data.org/5.svg"
+    },
+    {
+        "area": {
+            "id": 2088
+        },
+        "id": 6,
+        "shortName": "Schalke",
+        "crestUrl": "https://crests.football-data.org/6.svg"
+    },
+    {
+        "area": {
+            "id": 2088
+        },
+        "id": 9,
+        "shortName": "Hertha BSC",
+        "crestUrl": "https://crests.football-data.org/9.svg"
+    },
+    {
+        "area": {
+            "id": 2088
+        },
+        "id": 10,
+        "shortName": "Stuttgart",
+        "crestUrl": "https://crests.football-data.org/10.svg"
+    },
+    {
+        "area": {
+            "id": 2088
+        },
+        "id": 11,
+        "shortName": "Wolfsburg",
+        "crestUrl": "https://crests.football-data.org/11.svg"
+    },
+    {
+        "area": {
+            "id": 2088
+        },
+        "id": 12,
+        "shortName": "Bremen",
+        "crestUrl": "https://crests.football-data.org/12.svg"
+    },
+    {
+        "area": {
+            "id": 2088
+        },
+        "id": 15,
+        "shortName": "Mainz",
+        "crestUrl": "https://crests.football-data.org/15.svg"
+    },
+    {
+        "area": {
+            "id": 2088
+        },
+        "id": 16,
+        "shortName": "Augsburg",
+        "crestUrl": "https://crests.football-data.org/16.svg"
+    },
+    {
+        "area": {
+            "id": 2088
+        },
+        "id": 17,
+        "shortName": "Freiburg",
+        "crestUrl": "https://crests.football-data.org/17.svg"
+    },
+    {
+        "area": {
+            "id": 2088
+        },
+        "id": 18,
+        "shortName": "M'gladbach",
+        "crestUrl": "https://crests.football-data.org/18.svg"
+    },
+    {
+        "area": {
+            "id": 2088
+        },
+        "id": 19,
+        "shortName": "Frankfurt",
+        "crestUrl": "https://crests.football-data.org/19.svg"
+    },
+    {
+        "area": {
+            "id": 2088
+        },
+        "id": 28,
+        "shortName": "Union Berlin",
+        "crestUrl": "https://crests.football-data.org/28.svg"
+    },
+    {
+        "area": {
+            "id": 2088
+        },
+        "id": 38,
+        "shortName": "Bielefeld",
+        "crestUrl": "https://crests.football-data.org/38.svg"
+    },
+    {
+        "area": {
+            "id": 2088
+        },
+        "id": 721,
+        "shortName": "RB Leipzig",
+        "crestUrl": "https://crests.football-data.org/721.svg"
+    }
+]

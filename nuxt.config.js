@@ -23,10 +23,7 @@ export default {
     css: [],
 
     // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-    plugins: [
-        "~/plugins/embedyoutube.client",
-        "~/plugins/footballData"
-    ],
+    plugins: ["~/plugins/embedyoutube.client"],
 
     // Auto import components: https://go.nuxtjs.dev/config-components
     components: true,

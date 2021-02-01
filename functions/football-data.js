@@ -1,11 +1,11 @@
 let FOOTBALLAPI;
-try {
-    const secrets = require("../secrets.json");
-    FOOTBALLAPI = secrets.FOOTBALLAPI;
-} catch (error) {
-    FOOTBALLAPI = process.env.FOOTBALLAPI;
-}
-// FOOTBALLAPI = process.env.FOOTBALLAPI;
+// try {
+//     const secrets = require("../secrets.json");
+//     FOOTBALLAPI = secrets.FOOTBALLAPI;
+// } catch (error) {
+//     FOOTBALLAPI = process.env.FOOTBALLAPI;
+// }
+FOOTBALLAPI = process.env.FOOTBALLAPI;
 
 const axios = require("axios");
 exports.handler = async (event, context) => {
@@ -26,11 +26,10 @@ exports.handler = async (event, context) => {
     if (perform === "getLastFiveResultsByTeam") {
         const url = `https://api.football-data.org/v2/teams/${id}/matches?limit=5&status=FINISHED`;
         const { data } = await axios.get(url, headers);
-        console.log('data: ',data);
+        console.log("data: ", data);
         return {
             statusCode: 200,
             body: JSON.stringify(data.matches)
         };
     }
-    
 };

@@ -1,0 +1,162 @@
+[
+    {
+        "area": {
+            "id": 2072
+        },
+        "id": 57,
+        "shortName": "Arsenal",
+        "crestUrl": "https://crests.football-data.org/57.svg"
+    },
+    {
+        "area": {
+            "id": 2072
+        },
+        "id": 58,
+        "shortName": "Aston Villa",
+        "crestUrl": "https://crests.football-data.org/58.svg"
+    },
+    {
+        "area": {
+            "id": 2072
+        },
+        "id": 61,
+        "shortName": "Chelsea",
+        "crestUrl": "https://crests.football-data.org/61.svg"
+    },
+    {
+        "area": {
+            "id": 2072
+        },
+        "id": 62,
+        "shortName": "Everton",
+        "crestUrl": "https://crests.football-data.org/62.svg"
+    },
+    {
+        "area": {
+            "id": 2072
+        },
+        "id": 63,
+        "shortName": "Fulham",
+        "crestUrl": "https://crests.football-data.org/63.svg"
+    },
+    {
+        "area": {
+            "id": 2072
+        },
+        "id": 64,
+        "shortName": "Liverpool",
+        "crestUrl": "https://crests.football-data.org/64.svg"
+    },
+    {
+        "area": {
+            "id": 2072
+        },
+        "id": 65,
+        "shortName": "Man City",
+        "crestUrl": "https://crests.football-data.org/65.svg"
+    },
+    {
+        "area": {
+            "id": 2072
+        },
+        "id": 66,
+        "shortName": "Man United",
+        "crestUrl": "https://crests.football-data.org/66.svg"
+    },
+    {
+        "area": {
+            "id": 2072
+        },
+        "id": 67,
+        "shortName": "Newcastle",
+        "crestUrl": "https://crests.football-data.org/67.svg"
+    },
+    {
+        "area": {
+            "id": 2072
+        },
+        "id": 73,
+        "shortName": "Tottenham",
+        "crestUrl": "https://crests.football-data.org/73.svg"
+    },
+    {
+        "area": {
+            "id": 2072
+        },
+        "id": 74,
+        "shortName": "West Brom",
+        "crestUrl": "https://crests.football-data.org/74.svg"
+    },
+    {
+        "area": {
+            "id": 2072
+        },
+        "id": 76,
+        "shortName": "Wolverhampton",
+        "crestUrl": "https://crests.football-data.org/76.svg"
+    },
+    {
+        "area": {
+            "id": 2072
+        },
+        "id": 328,
+        "shortName": "Burnley",
+        "crestUrl": "https://crests.football-data.org/328.svg"
+    },
+    {
+        "area": {
+            "id": 2072
+        },
+        "id": 338,
+        "shortName": "Leicester City",
+        "crestUrl": "https://crests.football-data.org/338.svg"
+    },
+    {
+        "area": {
+            "id": 2072
+        },
+        "id": 340,
+        "shortName": "Southampton",
+        "crestUrl": "https://crests.football-data.org/340.svg"
+    },
+    {
+        "area": {
+            "id": 2072
+        },
+        "id": 341,
+        "shortName": "Leeds United",
+        "crestUrl": "https://crests.football-data.org/341.svg"
+    },
+    {
+        "area": {
+            "id": 2072
+        },
+        "id": 354,
+        "shortName": "Crystal Palace",
+        "crestUrl": "https://crests.football-data.org/354.svg"
+    },
+    {
+        "area": {
+            "id": 2072
+        },
+        "id": 356,
+        "shortName": "Sheffield Utd",
+        "crestUrl": "https://crests.football-data.org/356.svg"
+    },
+    {
+        "area": {
+            "id": 2072
+        },
+        "id": 397,
+        "shortName": "Brighton Hove",
+        "crestUrl": "https://crests.football-data.org/397.svg"
+    },
+    {
+        "area": {
+            "id": 2072
+        },
+        "id": 563,
+        "shortName": "West Ham",
+        "crestUrl": "https://crests.football-data.org/563.svg"
+    }
+]
