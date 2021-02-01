@@ -13,8 +13,7 @@
     "axios": "^0.21.1",
     "core-js": "^3.8.3",
     "nuxt": "^2.14.12",
-    "simple-youtube-api": "^5.2.1",
-    "vue-youtube-embed": "^2.2.2"
+    "simple-youtube-api": "^5.2.1"
   },
   "devDependencies": {
     "@nuxtjs/tailwindcss": "^3.4.2"

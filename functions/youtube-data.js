@@ -1,12 +1,12 @@
 const YouTube = require("simple-youtube-api");
 // let GOOGLEAPI;
-// try {
-//     const secrets = require("../secrets.json");
-//     GOOGLEAPI = secrets.GOOGLEAPI;
-// } catch (error) {
-//     GOOGLEAPI = process.env.GOOGLEAPI;
-// }
-GOOGLEAPI = process.env.GOOGLEAPI;
+try {
+    const secrets = require("../secrets.json");
+    GOOGLEAPI = secrets.GOOGLEAPI;
+} catch (error) {
+    GOOGLEAPI = process.env.GOOGLEAPI;
+}
+// GOOGLEAPI = process.env.GOOGLEAPI;
 const youtube = new YouTube(GOOGLEAPI);
 
 exports.handler = async event => {

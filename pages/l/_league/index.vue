@@ -18,7 +18,7 @@
 export default {
     async asyncData({ route, error }) {
         const leagueId = route.params.league;
-        const data = await import(`../../../assets/${leagueId}.json`);
+        const data = await import(`~/assets/${leagueId}.json`);
         return {
             teams: data.default
         };

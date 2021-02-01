@@ -11,29 +11,16 @@
                 :away-score="result.score.fullTime.awayTeam"
                 :competition="result.competition.name"
                 :date="result.utcDate"
-                :area=teamInfo.area.name
+                :area="teamInfo.area.name"
+                :result-info="result"
             />
         </div>
     </div>
 </template>
 
 <script>
+const getTeams = () => import(`~/assets/teams.json`).then(t => t.default || t);
 export default {
-    // async asyncData({ route, error, $footballApi }) {
-    //     const teamId = route.params.team;
-    //     const [teamInfo, latestResults] = await Promise.all([
-    //         $footballApi.getTeamById(teamId),
-    //         $footballApi.getLastFiveResultsByTeam(teamId)
-    //     ])
-    //     // put teams in local storage and check that first....
-    //     // or some other kind of caching...
-    //     console.log('latestResults: ',latestResults);
-    //     // console.log('teamInfo: ',teamInfo);
-    //     return {
-    //         latestResults: latestResults.reverse(),
-    //         teamInfo
-    //     };
-    // },
     data() {
         return {
             teamInfo: {},
@@ -41,23 +28,16 @@ export default {
         };
     },
     async mounted() {
-        const teamId = this.$route.params.team;;
-        const [response, response2] = await Promise.all([
-            fetch(`/.netlify/functions/football-data?perform=getTeamById&id=${teamId}`),
-            fetch(`/.netlify/functions/football-data?perform=getLastFiveResultsByTeam&id=${teamId}`)
-        ])
-        const [teamInfo, latestResults] = await Promise.all([
-            response.json(),
-            response2.json()
-        ])
+        const teams = await getTeams();
+        const teamId = this.$route.params.team;
+        const teamInfo = teams.find(t => t.id == teamId);
+        const response = await fetch(
+            `/.netlify/functions/football-data?perform=getLastFiveResultsByTeam&id=${teamId}`
+        );
+        const latestResults = await response.json();
         console.log("latestResults: ", latestResults);
-        console.log("teamInfo: ", teamInfo);
         this.latestResults = latestResults?.reverse();
         this.teamInfo = teamInfo;
-        // return {
-        //     latestResults: latestResults.reverse(),
-        //     teamInfo
-        // };
     }
 };
 </script>
