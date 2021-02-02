@@ -1,12 +1,12 @@
 <template>
     <div>
-        <div class="crest-container">
+        <div class="grid grid-cols-3 gap-4">
             <div v-for="team in teams" :key="team.id" class="place-self-center">
                 <nuxt-link :to="'/t/' + team.id" no-prefetch>
                     <img
                         :src="team.crestUrl"
                         alt="team.shortName"
-                        class="crest"
+                        class="w-20"
                     />
                 </nuxt-link>
             </div>
@@ -25,16 +25,3 @@ export default {
     }
 };
 </script>
-
-<style>
-.crest-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-}
-
-.crest {
-    padding: 10px;
-    height: 100px;
-    width: 100px;
-}
-</style>
