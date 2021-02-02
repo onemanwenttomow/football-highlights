@@ -10,7 +10,7 @@
                 class="h-12 w-12 mx-4"
             />
         </div>
-        <div v-for="result in latestResults" :key="result.id">
+        <div v-for="result in latestResults" :key="result.utcdate">
             <Result :area="teamInfo.area.name" :result-info="result" />
         </div>
     </div>
@@ -31,7 +31,7 @@ export default {
         const teamInfo = teams.find(t => t.id == teamId);
         console.log("teamInfo: ", teamInfo);
         const response = await fetch(
-            `/.netlify/functions/football-data?perform=getLastFiveResultsByTeam&id=${teamId}`
+            `/.netlify/functions/football-data?perform=getLatestResults&id=${teamId}`
         );
         const latestResults = await response.json();
         console.log("latestResults: ", latestResults);
