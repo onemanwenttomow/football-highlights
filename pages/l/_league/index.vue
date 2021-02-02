@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="crest-container">
-            <div v-for="team in teams" :key="team.id">
+            <div v-for="team in teams" :key="team.id" class="place-self-center">
                 <nuxt-link :to="'/t/' + team.id" no-prefetch>
                     <img
                         :src="team.crestUrl"

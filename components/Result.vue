@@ -1,9 +1,17 @@
 <template>
-    <div class="relative bg-blue-700 my-6 px-4 pb-4">
+    <div
+        v-if="homeTeamData && awayTeamData"
+        class="relative bg-blue-700 my-6 px-4 pb-4 text-white"
+    >
         <div class="slash"></div>
 
-        <div class="flex justify-center pb-10">
-            {{ date }}
+        <div class="flex flex-col items-center">
+            <div class="bg-red-700 p-2">
+                {{ competition }}
+            </div>
+            <div class="pb-5">
+                {{ date }}
+            </div>
         </div>
 
         <div>
@@ -19,13 +27,13 @@
                     :alt="awayTeamData.shortName"
                 />
             </div>
-            <div class="text-4xl text-white font-bold">
+            <div class="text-4xl font-bold">
                 <div class="flex justify-between">
                     <div>
                         {{ homeTeamData.shortName }}
                     </div>
                     <div
-                        class="py-1 px-4 bg-red-700 flex justify-center align-center"
+                        class="py-1 px-5 bg-red-700 flex justify-center align-center"
                     >
                         {{ homeScore }}
                     </div>
@@ -35,24 +43,34 @@
                         {{ awayTeamData.shortName }}
                     </div>
                     <div
-                        class="py-1 px-4 bg-red-700 flex justify-center align-center"
+                        class="py-1 px-5 bg-red-700 flex justify-center align-center"
                     >
                         {{ awayScore }}
                     </div>
                 </div>
             </div>
         </div>
-        <button @click="getHighlights">Get Highlights</button>
-        <div v-if="videos.length">
-            <a
-                :href="`https://www.youtube.com/watch?v=${videos[0].id}`"
-                target="_blank"
-                rel="noopener noreferrer"
+        <div class="flex flex-col justify-center">
+            <button
+                class="bg-white text-blue-800 px-4 py-2 mt-8 font-bold uppercase"
+                @click="getHighlights"
+                :disabled="btnDisabled"
             >
-                <img
-                    :src="`https://img.youtube.com/vi/${videos[0].id}/0.jpg`"
-                />
-            </a>
+                {{ btnText }}
+            </button>
+            <div v-if="videos.length" class="mt-4">
+                <a
+                    :href="`https://www.youtube.com/watch?v=${videos[0].id}`"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    <img
+                        :src="
+                            `https://img.youtube.com/vi/${videos[0].id}/0.jpg`
+                        "
+                    />
+                </a>
+            </div>
         </div>
     </div>
 </template>
@@ -62,30 +80,6 @@ const getTeams = () => import(`~/assets/teams.json`).then(t => t.default || t);
 
 export default {
     props: {
-        competition: {
-            type: String,
-            required: true
-        },
-        homeTeam: {
-            type: String,
-            required: true
-        },
-        awayTeam: {
-            type: String,
-            required: true
-        },
-        homeScore: {
-            type: Number,
-            required: true
-        },
-        awayScore: {
-            type: Number,
-            required: true
-        },
-        date: {
-            type: String,
-            required: true
-        },
         area: {
             type: String,
             required: true
@@ -100,7 +94,9 @@ export default {
             videos: [],
             homes: [],
             homeTeamData: {},
-            awayTeamData: {}
+            awayTeamData: {},
+            btnText: "Check for Highlights",
+            btnDisabled: false
         };
     },
     async mounted() {
@@ -114,15 +110,35 @@ export default {
     },
     computed: {
         query() {
-            return `${this.homeTeam} v ${this.awayTeam} ${this.homeScore}-${this.awayScore}`;
+            return `${this.homeTeamData.shortName} v ${this.awayTeamData.shortName} ${this.homeScore}-${this.awayScore}`;
+        },
+        competition() {
+            return this.resultInfo.competition.name;
+        },
+        homeScore() {
+            return this.resultInfo.score.fullTime.homeTeam;
+        },
+        awayScore() {
+            return this.resultInfo.score.fullTime.awayTeam;
+        },
+        date() {
+            return this.resultInfo.utcDate;
         }
     },
     methods: {
         async getHighlights() {
+            this.btnDisabled = true;
             const country = this.area.toLowerCase();
+            console.log(
+                `/.netlify/functions/youtube-data?date=${this.date}&q=${this.query}&country=${country}`
+            );
             const url = `/.netlify/functions/youtube-data?date=${this.date}&q=${this.query}&country=${country}`;
             const response = await fetch(url);
             const results = await response.json();
+            console.log("results: ", results);
+            this.btnText = results.length
+                ? "Highlights below"
+                : "Sorry, no highlights yet";
             this.videos = results;
         }
     }

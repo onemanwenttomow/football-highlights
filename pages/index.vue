@@ -7,7 +7,6 @@
     </div>
 </template>
 
-
 <style>
 /* Sample `apply` at-rules with Tailwind CSS
 .container {

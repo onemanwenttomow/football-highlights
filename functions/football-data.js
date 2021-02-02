@@ -24,7 +24,7 @@ exports.handler = async (event, context) => {
     }
 
     if (perform === "getLastFiveResultsByTeam") {
-        const url = `https://api.football-data.org/v2/teams/${id}/matches?limit=5&status=FINISHED`;
+        const url = `https://api.football-data.org/v2/teams/${id}/matches?status=FINISHED`;
         const { data } = await axios.get(url, headers);
         console.log("data: ", data);
         return {

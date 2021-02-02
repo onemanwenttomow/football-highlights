@@ -1,5 +1,5 @@
 const YouTube = require("simple-youtube-api");
-// let GOOGLEAPI;
+let GOOGLEAPI;
 // try {
 //     const secrets = require("../secrets.json");
 //     GOOGLEAPI = secrets.GOOGLEAPI;

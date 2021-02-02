@@ -1,19 +1,17 @@
 <template>
     <div>
-        <h1>Hello {{ teamInfo.shortName }}</h1>
-        <img :src="teamInfo.crestUrl" :alt="teamInfo.shortName" />
-        <h2>Last 5 results</h2>
-        <div v-for="result in latestResults" :key="result.id">
-            <Result
-                :home-team="result.homeTeam.name"
-                :away-team="result.awayTeam.name"
-                :home-score="result.score.fullTime.homeTeam"
-                :away-score="result.score.fullTime.awayTeam"
-                :competition="result.competition.name"
-                :date="result.utcDate"
-                :area="teamInfo.area.name"
-                :result-info="result"
+        <div class="flex items-center justify-center">
+            <h1 class="text-5xl font-bold leading-tight">
+                {{ teamInfo.shortName }}
+            </h1>
+            <img
+                :src="teamInfo && teamInfo.crestUrl"
+                :alt="teamInfo.shortName"
+                class="h-12 w-12 mx-4"
             />
+        </div>
+        <div v-for="result in latestResults" :key="result.id">
+            <Result :area="teamInfo.area.name" :result-info="result" />
         </div>
     </div>
 </template>
@@ -31,6 +29,7 @@ export default {
         const teams = await getTeams();
         const teamId = this.$route.params.team;
         const teamInfo = teams.find(t => t.id == teamId);
+        console.log("teamInfo: ", teamInfo);
         const response = await fetch(
             `/.netlify/functions/football-data?perform=getLastFiveResultsByTeam&id=${teamId}`
         );
