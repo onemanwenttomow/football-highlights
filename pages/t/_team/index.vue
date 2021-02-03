@@ -19,7 +19,7 @@
         <div
             v-for="(load, i) in loading"
             :key="i"
-            class="min-w-full bg-gray-300 my-6 px-4 text-4xl text-gray-400"
+            class="min-w-full bg-gray-300 my-6 px-4 text-4xl text-gray-400 relative skeleton"
         >
             <div class="bg-red-300 w-1/4 m-auto h-8 mb-8"></div>
             <div>
@@ -72,3 +72,36 @@ export default {
     }
 };
 </script>
+
+<style>
+.skeleton::after {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    transform: translateX(-100%);
+    background-image: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0) 0,
+        rgba(255, 255, 255, 0.2) 20%,
+        rgba(255, 255, 255, 0.5) 60%,
+        rgba(255, 255, 255, 0)
+    );
+    content: "";
+}
+
+.skeleton:nth-child(even):after {
+    animation: shimmer 3s infinite;
+}
+
+.skeleton:nth-child(odd):after {
+    animation: shimmer 3s 1s infinite;
+}
+
+@keyframes shimmer {
+    100% {
+        transform: translateX(100%);
+    }
+}
+</style>
