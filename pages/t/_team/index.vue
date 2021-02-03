@@ -19,13 +19,30 @@
         <div
             v-for="(load, i) in loading"
             :key="i"
-            class="min-w-full bg-gray-300 my-6"
+            class="min-w-full bg-gray-300 my-6 px-4 text-4xl text-gray-400"
         >
-            <div class="bg-red-300 w-1/4 m-auto h-8 mb-4"></div>
-            <div>2</div>
-            <div>3</div>
-            <div>4</div>
-            <div>5</div>
+            <div class="bg-red-300 w-1/4 m-auto h-8 mb-8"></div>
+            <div>
+                <div class="h-12 w-12 mr-2 bg-gray-400 inline-block"></div>
+                <div class="h-12 w-12 mr-2 bg-gray-400 inline-block"></div>
+            </div>
+            <div class="flex justify-between mt-2">
+                <div class="bg-gray-400">team name</div>
+                <div class="py-1 px-5 bg-red-300 text-red-300">
+                    0
+                </div>
+            </div>
+            <div class="flex justify-between mt-2">
+                <div class="bg-gray-400">team name</div>
+                <div class="py-1 px-5 bg-red-300 text-red-300">
+                    0
+                </div>
+            </div>
+            <div class="flex flex-col justify-center">
+                <div class="bg-gray-400 px-4 py-2 mt-8 mb-4 text-xl">
+                    button text
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -41,17 +58,17 @@ export default {
         };
     },
     async mounted() {
-        // const teams = await getTeams();
-        // const teamId = this.$route.params.team;
-        // const teamInfo = teams.find(t => t.id == teamId);
-        // console.log("teamInfo: ", teamInfo);
-        // const response = await fetch(
-        //     `/.netlify/functions/football-data?perform=getLatestResults&id=${teamId}`
-        // );
-        // const latestResults = await response.json();
-        // console.log("latestResults: ", latestResults);
-        // this.latestResults = latestResults?.reverse();
-        // this.teamInfo = teamInfo;
+        const teams = await getTeams();
+        const teamId = this.$route.params.team;
+        const teamInfo = teams.find(t => t.id == teamId);
+        console.log("teamInfo: ", teamInfo);
+        const response = await fetch(
+            `/.netlify/functions/football-data?perform=getLatestResults&id=${teamId}`
+        );
+        const latestResults = await response.json();
+        console.log("latestResults: ", latestResults);
+        this.latestResults = latestResults?.reverse();
+        this.teamInfo = teamInfo;
     }
 };
 </script>
