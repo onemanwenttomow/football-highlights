@@ -27,32 +27,34 @@ html {
     margin: 0;
 }
 
-.button--green {
-    display: inline-block;
-    border-radius: 4px;
-    border: 1px solid #3b8070;
-    color: #3b8070;
-    text-decoration: none;
-    padding: 10px 30px;
+.skeleton::after {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    transform: translateX(-100%);
+    background-image: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0) 0,
+        rgba(255, 255, 255, 0.2) 20%,
+        rgba(255, 255, 255, 0.5) 60%,
+        rgba(255, 255, 255, 0)
+    );
+    content: "";
 }
 
-.button--green:hover {
-    color: #fff;
-    background-color: #3b8070;
+.skeleton:nth-child(even):after {
+    animation: shimmer 3s infinite;
 }
 
-.button--grey {
-    display: inline-block;
-    border-radius: 4px;
-    border: 1px solid #35495e;
-    color: #35495e;
-    text-decoration: none;
-    padding: 10px 30px;
-    margin-left: 15px;
+.skeleton:nth-child(odd):after {
+    animation: shimmer 3s 1s infinite;
 }
 
-.button--grey:hover {
-    color: #fff;
-    background-color: #35495e;
+@keyframes shimmer {
+    100% {
+        transform: translateX(100%);
+    }
 }
 </style>
