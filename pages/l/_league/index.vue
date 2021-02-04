@@ -1,16 +1,5 @@
 <template>
-    <div>
-        <!-- <div class="grid grid-cols-3 gap-4">
-            <div v-for="team in teams" :key="team.id" class="place-self-center">
-                <nuxt-link :to="'/t/' + team.id" no-prefetch>
-                    <img
-                        :src="team.crestUrl"
-                        alt="team.shortName"
-                        class="w-20"
-                    />
-                </nuxt-link>
-            </div>
-        </div> -->
+    <div v-if="latestResults.length">
         <div v-for="result in latestResults" :key="result.utcdate">
             <Result
                 :area="country"
@@ -18,6 +7,10 @@
                 :competition-name="competition"
             />
         </div>
+    </div>
+    <div v-else class="relative">
+        <div class="min-w-full h-96 bg-gray-300 p-8 my-2 skeleton"></div>
+        <SkeletonResults v-for="(load, i) in loading" :key="i" />
     </div>
 </template>
 
