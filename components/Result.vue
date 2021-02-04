@@ -16,22 +16,28 @@
 
         <div>
             <div class="flex">
-                <img
-                    class="h-12 w-12 mr-2"
-                    :src="homeTeamData.crestUrl"
-                    :alt="homeTeamData.shortName"
-                />
-                <img
-                    class="h-12 w-12 mr-2"
-                    :src="awayTeamData.crestUrl"
-                    :alt="awayTeamData.shortName"
-                />
+                <nuxt-link :to="`/t/${homeTeamData.id}`">
+                    <img
+                        class="h-12 w-12 mr-2"
+                        :src="homeTeamData.crestUrl"
+                        :alt="homeTeamData.shortName"
+                    />
+                </nuxt-link>
+                <nuxt-link :to="`/t/${awayTeamData.id}`">
+                    <img
+                        class="h-12 w-12 mr-2"
+                        :src="awayTeamData.crestUrl"
+                        :alt="awayTeamData.shortName"
+                    />
+                </nuxt-link>
             </div>
             <div class="text-4xl font-bold">
                 <div class="flex justify-between">
-                    <div>
-                        {{ homeTeamData.shortName }}
-                    </div>
+                    <nuxt-link :to="`/t/${homeTeamData.id}`">
+                        <div>
+                            {{ homeTeamData.shortName }}
+                        </div>
+                    </nuxt-link>
                     <div
                         class="py-1 px-5 bg-red-700 flex justify-center align-center"
                     >
@@ -39,9 +45,11 @@
                     </div>
                 </div>
                 <div class="flex justify-between mt-2">
-                    <div>
-                        {{ awayTeamData.shortName }}
-                    </div>
+                    <nuxt-link :to="`/t/${awayTeamData.id}`">
+                        <div>
+                            {{ awayTeamData.shortName }}
+                        </div>
+                    </nuxt-link>
                     <div
                         class="py-1 px-5 bg-red-700 flex justify-center align-center"
                     >
@@ -82,7 +90,10 @@ export default {
     props: {
         area: {
             type: String,
-            required: true
+            required: false
+        },
+        competitionName: {
+            type: String
         },
         resultInfo: {
             type: Object,
@@ -113,7 +124,7 @@ export default {
             return `${this.homeTeamData.shortName} v ${this.awayTeamData.shortName} ${this.homeScore}-${this.awayScore}`;
         },
         competition() {
-            return this.resultInfo.competition.name;
+            return this.competitionName || this.resultInfo?.competition?.name;
         },
         homeScore() {
             return this.resultInfo.score.fullTime.homeTeam;
