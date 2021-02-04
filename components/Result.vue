@@ -16,14 +16,14 @@
 
         <div>
             <div class="flex">
-                <nuxt-link :to="`/t/${homeTeamData.id}`">
+                <nuxt-link :to="`/t/${homeTeamData.id}`" no-prefetch>
                     <img
                         class="h-12 w-12 mr-2"
                         :src="homeTeamData.crestUrl"
                         :alt="homeTeamData.shortName"
                     />
                 </nuxt-link>
-                <nuxt-link :to="`/t/${awayTeamData.id}`">
+                <nuxt-link :to="`/t/${awayTeamData.id}`" no-prefetch>
                     <img
                         class="h-12 w-12 mr-2"
                         :src="awayTeamData.crestUrl"
