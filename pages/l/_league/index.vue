@@ -9,7 +9,6 @@
         </div>
     </div>
     <div v-else class="relative">
-        <div class="min-w-full h-96 bg-gray-300 p-8 my-2 skeleton"></div>
         <SkeletonResults v-for="(load, i) in loading" :key="i" />
     </div>
 </template>
