@@ -138,6 +138,7 @@ export default {
     },
     methods: {
         async getHighlights() {
+            this.btnText = "checking....";
             this.btnDisabled = true;
             const country = this.area.toLowerCase();
             console.log(
