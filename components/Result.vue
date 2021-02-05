@@ -58,7 +58,7 @@
                 </div>
             </div>
         </div>
-        <div class="flex flex-col justify-center">
+        <div v-if="isFixture" class="flex flex-col justify-center">
             <button
                 class="bg-white text-blue-800 px-4 py-2 mt-8 font-bold uppercase"
                 @click="getHighlights"
@@ -110,14 +110,13 @@ export default {
             btnDisabled: false
         };
     },
+    watch: {
+        resultInfo() {
+            this.setupTeams();
+        }
+    },
     async mounted() {
-        this.teams = await getTeams();
-        this.homeTeamData = this.teams.find(
-            t => t.id == this.resultInfo.homeTeam.id
-        );
-        this.awayTeamData = this.teams.find(
-            t => t.id == this.resultInfo.awayTeam.id
-        );
+        this.setupTeams();
     },
     computed: {
         query() {
@@ -126,17 +125,33 @@ export default {
         competition() {
             return this.competitionName || this.resultInfo?.competition?.name;
         },
+        isFixture() {
+            return this.resultInfo.score.winner;
+        },
         homeScore() {
-            return this.resultInfo.score.fullTime.homeTeam;
+            return this.isFixture
+                ? this.resultInfo.score.fullTime.homeTeam
+                : "?";
         },
         awayScore() {
-            return this.resultInfo.score.fullTime.awayTeam;
+            return this.isFixture
+                ? this.resultInfo.score.fullTime.awayTeam
+                : "?";
         },
         date() {
             return this.resultInfo.utcDate;
         }
     },
     methods: {
+        async setupTeams() {
+            this.teams = await getTeams();
+            this.homeTeamData = this.teams.find(
+                t => t.id == this.resultInfo.homeTeam.id
+            );
+            this.awayTeamData = this.teams.find(
+                t => t.id == this.resultInfo.awayTeam.id
+            );
+        },
         async getHighlights() {
             this.btnText = "checking....";
             this.btnDisabled = true;

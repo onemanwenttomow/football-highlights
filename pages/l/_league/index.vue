@@ -1,10 +1,10 @@
 <template>
     <div>
         <ul class="flex mb-0 list-none flex-wrap pt-3 flex-row justify-center">
-            <li class="-mb-px flex-auto text-center">
+            <li class="flex-auto text-center">
                 <a
                     class="uppercase px-5 py-3 block leading-normal"
-                    @click="openTab = 1"
+                    @click="switchTab(1)"
                     :class="{
                         'text-red-700 bg-white': openTab !== 1,
                         'text-white bg-red-700': openTab === 1
@@ -13,10 +13,10 @@
                     Results
                 </a>
             </li>
-            <li class="-mb-px flex-auto text-center">
+            <li class="flex-auto text-center">
                 <a
                     class="uppercase px-5 py-3 block leading-normal"
-                    @click="openTab = 2"
+                    @click="switchTab(2)"
                     :class="{
                         'text-red-700 bg-white': openTab !== 2,
                         'text-white bg-red-700': openTab === 2
@@ -26,11 +26,11 @@
                 </a>
             </li>
         </ul>
-        <div v-if="latestResults.length">
-            <div v-for="result in latestResults" :key="result.utcdate">
+        <div v-if="matches.length">
+            <div v-for="match in matches" :key="match.utcdate">
                 <Result
                     :area="country"
-                    :result-info="result"
+                    :result-info="match"
                     :competition-name="competition"
                 />
             </div>
@@ -52,12 +52,29 @@ export default {
     },
     data() {
         return {
-            latestResults: [],
+            matches: [],
+            fixtures: [],
+            results: [],
             loading: [1, 1, 1],
             country: "",
             competition: "",
             openTab: 1
         };
+    },
+    methods: {
+        switchTab(num) {
+            console.log("switching");
+            console.log("this.fixtures: ", this.fixtures);
+            console.log("this.results: ", this.results);
+            this.openTab = num;
+            if (num === 1) {
+                this.matches = this.results;
+            }
+            if (num === 2) {
+                this.matches = this.fixtures;
+            }
+            console.log("this.matches: ", this.matches);
+        }
     },
     async mounted() {
         const leagueId = this.$route.params.league;
@@ -68,7 +85,8 @@ export default {
         console.log("data: ", data);
         const fixtures = data?.matches.filter(m => m.status === "SCHEDULED");
         const results = data?.matches.filter(m => m.status === "FINISHED");
-        this.latestResults = results.reverse();
+        this.results = results.reverse();
+        this.matches = this.results;
         this.fixtures = fixtures;
         console.log("this.fixtures: ", this.fixtures);
         this.country = data?.competition?.area?.name;
