@@ -5,7 +5,7 @@
                 {{ teamInfo.shortName }}
             </h1>
             <img
-                :src="teamInfo && teamInfo.crestUrl"
+                :src="teamInfo.crestUrl"
                 :alt="teamInfo.shortName"
                 class="w-12 mx-4"
             />
@@ -25,23 +25,26 @@ const getTeams = () => import(`~/assets/teams.json`).then(t => t.default || t);
 export default {
     data() {
         return {
-            teamInfo: {},
             latestResults: [],
             loading: [1, 1, 1]
         };
     },
-    async mounted() {
+    async asyncData({ route, error }) {
         const teams = await getTeams();
-        const teamId = this.$route.params.team;
+        const teamId = route.params.team;
         const teamInfo = teams.find(t => t.id == teamId);
-        console.log("teamInfo: ", teamInfo);
+        return {
+            teamInfo
+        };
+    },
+    async mounted() {
+        const teamId = this.$route.params.team;
         const response = await fetch(
             `/.netlify/functions/football-data?perform=getLatestResults&id=${teamId}`
         );
         const latestResults = await response.json();
         console.log("latestResults: ", latestResults);
         this.latestResults = latestResults?.reverse();
-        this.teamInfo = teamInfo;
     }
 };
 </script>

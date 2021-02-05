@@ -63,9 +63,6 @@ export default {
     },
     methods: {
         switchTab(num) {
-            console.log("switching");
-            console.log("this.fixtures: ", this.fixtures);
-            console.log("this.results: ", this.results);
             this.openTab = num;
             if (num === 1) {
                 this.matches = this.results;
@@ -73,7 +70,6 @@ export default {
             if (num === 2) {
                 this.matches = this.fixtures;
             }
-            console.log("this.matches: ", this.matches);
         }
     },
     async mounted() {
@@ -82,13 +78,11 @@ export default {
             `/.netlify/functions/football-data?perform=getResultsByLeage&id=${leagueId}`
         );
         const data = await response.json();
-        console.log("data: ", data);
         const fixtures = data?.matches.filter(m => m.status === "SCHEDULED");
         const results = data?.matches.filter(m => m.status === "FINISHED");
         this.results = results.reverse();
         this.matches = this.results;
         this.fixtures = fixtures;
-        console.log("this.fixtures: ", this.fixtures);
         this.country = data?.competition?.area?.name;
         this.competition = data?.competition?.name;
     }

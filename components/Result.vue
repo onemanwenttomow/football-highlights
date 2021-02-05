@@ -131,15 +131,28 @@ export default {
         homeScore() {
             return this.isFixture
                 ? this.resultInfo.score.fullTime.homeTeam
-                : "?";
+                : "-";
         },
         awayScore() {
             return this.isFixture
                 ? this.resultInfo.score.fullTime.awayTeam
-                : "?";
+                : "-";
         },
         date() {
-            return this.resultInfo.utcDate;
+            return `${this.kickOffTime}, ${this.prettyDate}`;
+        },
+        kickOffTime() {
+            const d = new Date(this.resultInfo.utcDate);
+            const h = d.getHours();
+            const m = d.getMinutes() + "";
+            return `${h}:${m.length > 1 ? m : m + 0}`;
+        },
+        prettyDate() {
+            const date = new Date(this.resultInfo.utcDate);
+            const prettyDate = new Intl.DateTimeFormat("en-GB", {
+                dateStyle: "full"
+            }).format(date);
+            return prettyDate;
         }
     },
     methods: {
