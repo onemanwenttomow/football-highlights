@@ -37,10 +37,6 @@ export default {
         results: {
             type: Array,
             required: true
-        },
-        matches: {
-            type: Array,
-            required: true
         }
     },
     data() {
@@ -50,73 +46,66 @@ export default {
             resultsInView: 10,
             currentlyViewing: "results",
             currentTarget: "",
-            observer: "",
-            targetLength: 0
+            observer: ""
         };
     },
     watch: {
-        matches() {
-            console.log("watching!");
+        async fixtures() {
+            await this.$nextTick();
             this.addObserver();
         }
     },
     methods: {
-        switchTab(num) {
-            // something not right in switch tab, but getting close...
+        async switchTab(num) {
             this.observer.unobserve(this.currentTarget);
             this.openTab = num;
             if (num === 1) {
+                this.fixturesInView = 10;
                 this.$emit("matches", this.results.slice(0, 10));
                 this.currentlyViewing = "results";
             }
             if (num === 2) {
+                this.resultsInView = 10;
                 this.$emit("matches", this.fixtures.slice(0, 10));
                 this.currentlyViewing = "fixtures";
             }
-            setTimeout(() => {
-                this.addObserver();
-            }, 1);
+            await this.$nextTick();
+            this.addObserver();
+        },
+        handleIntersection(entries) {
+            entries.map(entry => {
+                console.log("do something!");
+                if (entry.isIntersecting) {
+                    if (this.currentlyViewing === "results") {
+                        this.resultsInView += 10;
+                        this.$emit(
+                            "matches",
+                            this.results.slice(0, this.resultsInView)
+                        );
+                    }
+                    if (this.currentlyViewing === "fixtures") {
+                        this.fixturesInView += 10;
+                        this.$emit(
+                            "matches",
+                            this.fixtures.slice(0, this.fixturesInView)
+                        );
+                    }
+                    this.observer.unobserve(this.currentTarget);
+                    setTimeout(this.addObserver, 1);
+                }
+            });
         },
         addObserver() {
-            const results = document.querySelectorAll(".result-card");
-            if (
-                !results ||
-                !results.length ||
-                results.length == this.targetLength
-            ) {
+            const results = this.$parent.$refs.matchesref;
+            if (!results || !results.length) {
                 return;
             }
             const target = results[results.length - 1];
+            this.currentTarget = target;
             const options = {
                 threshold: 0.75
             };
-            const handleIntersection = entries => {
-                entries.map(entry => {
-                    console.log("do something!");
-                    if (entry.isIntersecting) {
-                        this.targetLength = results.length;
-
-                        if (this.currentlyViewing === "results") {
-                            this.resultsInView += 10;
-                            console.log("emitting results");
-                            this.$emit(
-                                "matches",
-                                this.results.slice(0, this.resultsInView)
-                            );
-                        }
-                        if (this.currentlyViewing === "fixtures") {
-                            this.fixturesInView += 10;
-                            this.$emit(
-                                "matches",
-                                this.fixtures.slice(0, this.fixturesInView)
-                            );
-                        }
-                        observer.unobserve(target);
-                        this.addObserver();
-                    }
-                });
-            };
-            console.log("************ ADDING OBSERVER ***************");
+            const handleIntersection = this.handleIntersection;
             const observer = new IntersectionObserver(
                 handleIntersection,
                 options

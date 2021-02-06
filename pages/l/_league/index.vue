@@ -29,11 +29,10 @@
         <Navbar
             :fixtures="fixtures"
             :results="results"
-            :matches="matches"
             @matches="matches = $event"
         />
         <div v-if="matches.length">
-            <div v-for="match in matches" :key="match.utcdate">
+            <div v-for="match in matches" :key="match.utcdate" ref="matchesref">
                 <Result
                     :area="country"
                     :result-info="match"
@@ -79,6 +78,7 @@ export default {
         this.fixtures = fixtures;
         this.country = data?.competition?.area?.name;
         this.competition = data?.competition?.name;
+        this.dataLoaded = true;
     }
 };
 </script>
