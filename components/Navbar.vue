@@ -37,7 +37,8 @@ export default {
         results: {
             type: Array,
             required: true
-        }
+        },
+        test: {}
     },
     data() {
         return {
@@ -48,6 +49,10 @@ export default {
             currentTarget: "",
             observer: ""
         };
+    },
+    async mounted() {
+        await this.$nextTick();
+        this.addObserver();
     },
     watch: {
         async fixtures() {
@@ -72,27 +77,29 @@ export default {
             await this.$nextTick();
             this.addObserver();
         },
+        loadNewFixtures() {
+            console.log("loading more fixtures");
+            this.fixturesInView += 10;
+            this.$emit("matches", this.fixtures.slice(0, this.fixturesInView));
+        },
+        loadNewResults() {
+            console.log("loading more results");
+            this.resultsInView += 10;
+            this.$emit("matches", this.results.slice(0, this.resultsInView));
+        },
         handleIntersection(entries) {
             entries.map(entry => {
-                console.log("do something!");
-                if (entry.isIntersecting) {
-                    if (this.currentlyViewing === "results") {
-                        this.resultsInView += 10;
-                        this.$emit(
-                            "matches",
-                            this.results.slice(0, this.resultsInView)
-                        );
-                    }
-                    if (this.currentlyViewing === "fixtures") {
-                        this.fixturesInView += 10;
-                        this.$emit(
-                            "matches",
-                            this.fixtures.slice(0, this.fixturesInView)
-                        );
-                    }
-                    this.observer.unobserve(this.currentTarget);
-                    setTimeout(this.addObserver, 1);
+                if (!entry.isIntersecting) {
+                    return;
                 }
+                if (this.currentlyViewing === "results") {
+                    this.loadNewResults();
+                }
+                if (this.currentlyViewing === "fixtures") {
+                    this.loadNewFixtures();
+                }
+                this.observer.unobserve(this.currentTarget);
+                this.$nextTick().then(this.addObserver);
             });
         },
         addObserver() {

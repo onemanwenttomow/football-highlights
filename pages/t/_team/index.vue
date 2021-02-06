@@ -1,5 +1,5 @@
 <template>
-    <div v-if="latestResults.length">
+    <div v-if="matches.length">
         <div class="flex items-center justify-center">
             <h1 class="text-5xl font-bold leading-tight">
                 {{ teamInfo.shortName }}
@@ -10,8 +10,13 @@
                 class="w-12 mx-4"
             />
         </div>
-        <div v-for="result in latestResults" :key="result.utcdate">
-            <Result :area="teamInfo.area.name" :result-info="result" />
+        <Navbar
+            :fixtures="fixtures"
+            :results="results"
+            @matches="matches = $event"
+        />
+        <div v-for="match in matches" :key="match.utcdate" ref="matchesref">
+            <Result :area="teamInfo.area.name" :result-info="match" />
         </div>
     </div>
     <div v-else class="relative">
@@ -25,7 +30,9 @@ const getTeams = () => import(`~/assets/teams.json`).then(t => t.default || t);
 export default {
     data() {
         return {
-            latestResults: [],
+            matches: [],
+            fixtures: [],
+            results: [],
             loading: [1, 1, 1]
         };
     },
@@ -42,9 +49,13 @@ export default {
         const response = await fetch(
             `/.netlify/functions/football-data?perform=getLatestResults&id=${teamId}`
         );
-        const latestResults = await response.json();
-        console.log("latestResults: ", latestResults);
-        this.latestResults = latestResults?.reverse();
+        const data = await response.json();
+        const fixtures = data?.filter(m => m.status === "SCHEDULED");
+        console.log("fixtures: ", fixtures);
+        const results = data?.filter(m => m.status === "FINISHED");
+        this.results = results.slice().reverse();
+        this.matches = this.results.slice(0, 10);
+        this.fixtures = fixtures;
     }
 };
 </script>

@@ -1,31 +1,5 @@
 <template>
     <div>
-        <!-- <ul class="flex mb-0 list-none flex-wrap pt-3 flex-row justify-center">
-            <li class="flex-auto text-center">
-                <a
-                    class="uppercase px-5 py-3 block leading-normal"
-                    @click="switchTab(1)"
-                    :class="{
-                        'text-red-700 bg-white': openTab !== 1,
-                        'text-white bg-red-700': openTab === 1
-                    }"
-                >
-                    Results
-                </a>
-            </li>
-            <li class="flex-auto text-center">
-                <a
-                    class="uppercase px-5 py-3 block leading-normal"
-                    @click="switchTab(2)"
-                    :class="{
-                        'text-red-700 bg-white': openTab !== 2,
-                        'text-white bg-red-700': openTab === 2
-                    }"
-                >
-                    Fixtures
-                </a>
-            </li>
-        </ul> -->
         <Navbar
             :fixtures="fixtures"
             :results="results"
