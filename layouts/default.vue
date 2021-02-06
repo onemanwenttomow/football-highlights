@@ -1,7 +1,7 @@
 <template>
     <div class="bg-blue-200 min-h-screen">
         <div class="max-w-screen-sm m-auto overflow-hidden">
-            <Navbar />
+            <Logo />
             <Nuxt />
         </div>
     </div>

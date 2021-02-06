@@ -1,5 +1,130 @@
 <template>
-    <nuxt-link to="/">
-        <h1>Home</h1>
-    </nuxt-link>
+    <ul class="flex mb-0 list-none flex-wrap pt-3 flex-row justify-center">
+        <li class="flex-auto text-center">
+            <a
+                class="uppercase px-5 py-3 block leading-normal"
+                @click="switchTab(1)"
+                :class="{
+                    'text-red-700 bg-white': openTab !== 1,
+                    'text-white bg-red-700': openTab === 1
+                }"
+            >
+                Results
+            </a>
+        </li>
+        <li class="flex-auto text-center">
+            <a
+                class="uppercase px-5 py-3 block leading-normal"
+                @click="switchTab(2)"
+                :class="{
+                    'text-red-700 bg-white': openTab !== 2,
+                    'text-white bg-red-700': openTab === 2
+                }"
+            >
+                Fixtures
+            </a>
+        </li>
+    </ul>
 </template>
+
+<script>
+export default {
+    props: {
+        fixtures: {
+            type: Array,
+            required: true
+        },
+        results: {
+            type: Array,
+            required: true
+        },
+        matches: {
+            type: Array,
+            required: true
+        }
+    },
+    data() {
+        return {
+            openTab: 1,
+            fixturesInView: 10,
+            resultsInView: 10,
+            currentlyViewing: "results",
+            currentTarget: "",
+            observer: "",
+            targetLength: 0
+        };
+    },
+    watch: {
+        matches() {
+            console.log("watching!");
+            this.addObserver();
+        }
+    },
+    methods: {
+        switchTab(num) {
+            // something not right in switch tab, but getting close...
+            this.observer.unobserve(this.currentTarget);
+            this.openTab = num;
+            if (num === 1) {
+                this.$emit("matches", this.results.slice(0, 10));
+                this.currentlyViewing = "results";
+            }
+            if (num === 2) {
+                this.$emit("matches", this.fixtures.slice(0, 10));
+                this.currentlyViewing = "fixtures";
+            }
+            setTimeout(() => {
+                this.addObserver();
+            }, 1);
+        },
+        addObserver() {
+            const results = document.querySelectorAll(".result-card");
+            if (
+                !results ||
+                !results.length ||
+                results.length == this.targetLength
+            ) {
+                return;
+            }
+            const target = results[results.length - 1];
+            const options = {
+                threshold: 0.75
+            };
+            const handleIntersection = entries => {
+                entries.map(entry => {
+                    console.log("do something!");
+                    if (entry.isIntersecting) {
+                        this.targetLength = results.length;
+
+                        if (this.currentlyViewing === "results") {
+                            this.resultsInView += 10;
+                            console.log("emitting results");
+                            this.$emit(
+                                "matches",
+                                this.results.slice(0, this.resultsInView)
+                            );
+                        }
+                        if (this.currentlyViewing === "fixtures") {
+                            this.fixturesInView += 10;
+                            this.$emit(
+                                "matches",
+                                this.fixtures.slice(0, this.fixturesInView)
+                            );
+                        }
+                        observer.unobserve(target);
+                        this.addObserver();
+                    }
+                });
+            };
+            console.log("************ ADDING OBSERVER ***************");
+            const observer = new IntersectionObserver(
+                handleIntersection,
+                options
+            );
+            this.observer = observer;
+            this.currentTarget = target;
+            observer.observe(target);
+        }
+    }
+};
+</script>
