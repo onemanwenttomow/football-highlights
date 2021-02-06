@@ -27,7 +27,7 @@
             </li>
         </ul>
         <div v-if="matches.length">
-            <div v-for="match in matches" :key="match.utcdate">
+            <div v-for="match in matches" :key="match.utcdate" ref="matches">
                 <Result
                     :area="country"
                     :result-info="match"
@@ -61,11 +61,14 @@ export default {
             openTab: 1,
             fixturesInView: 10,
             resultsInView: 10,
-            currentlyViewing: "results"
+            currentlyViewing: "results",
+            observer: "",
+            target: ""
         };
     },
     methods: {
         switchTab(num) {
+            this.observer.unobserve(this.target);
             this.openTab = num;
             console.log("this.matches.length: ", this.matches.length);
             if (num === 1) {
@@ -81,7 +84,8 @@ export default {
             }, 1);
         },
         addObserver() {
-            const matches = document.querySelectorAll(".result-card");
+            console.log("this.$refs.matches: ", this.$refs.matches);
+            const matches = this.$refs.matches;
             if (!matches.length) {
                 return;
             }
@@ -120,6 +124,8 @@ export default {
                 handleIntersection,
                 options
             );
+            this.observer = observer;
+            this.target = target;
 
             observer.observe(target);
         }
