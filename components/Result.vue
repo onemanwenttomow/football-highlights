@@ -1,7 +1,7 @@
 <template>
     <div
         v-if="homeTeamData && awayTeamData"
-        class="relative bg-blue-700 my-6 px-4 pb-4 text-white"
+        class="relative bg-blue-700 my-6 px-4 pb-4 text-white result-card"
     >
         <div class="slash"></div>
 

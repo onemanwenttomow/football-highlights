@@ -58,18 +58,70 @@ export default {
             loading: [1, 1, 1],
             country: "",
             competition: "",
-            openTab: 1
+            openTab: 1,
+            fixturesInView: 10,
+            resultsInView: 10,
+            currentlyViewing: "results"
         };
     },
     methods: {
         switchTab(num) {
             this.openTab = num;
+            console.log("this.matches.length: ", this.matches.length);
             if (num === 1) {
-                this.matches = this.results;
+                this.matches = this.results.slice(0, 10);
+                this.currentlyViewing = "results";
             }
             if (num === 2) {
-                this.matches = this.fixtures;
+                this.matches = this.fixtures.slice(0, 10);
+                this.currentlyViewing = "fixtures";
             }
+            setTimeout(() => {
+                this.addObserver();
+            }, 1);
+        },
+        addObserver() {
+            const matches = document.querySelectorAll(".result-card");
+            if (!matches.length) {
+                return;
+            }
+            const target = matches[matches.length - 1];
+            const options = {
+                threshold: 0.75
+            };
+            const handleIntersection = entries => {
+                entries.map(entry => {
+                    console.log("do something!");
+                    if (entry.isIntersecting) {
+                        console.log(
+                            "this.currentlyViewing: ",
+                            this.currentlyViewing
+                        );
+                        if (this.currentlyViewing === "results") {
+                            this.resultsInView += 10;
+                            this.matches = this.results.slice(
+                                0,
+                                this.resultsInView
+                            );
+                        }
+                        if (this.currentlyViewing === "fixtures") {
+                            this.fixturesInView += 10;
+                            this.matches = this.fixtures.slice(
+                                0,
+                                this.fixturesInView
+                            );
+                        }
+                        observer.unobserve(target);
+                        this.addObserver();
+                    }
+                });
+            };
+            const observer = new IntersectionObserver(
+                handleIntersection,
+                options
+            );
+
+            observer.observe(target);
         }
     },
     async mounted() {
@@ -80,11 +132,15 @@ export default {
         const data = await response.json();
         const fixtures = data?.matches.filter(m => m.status === "SCHEDULED");
         const results = data?.matches.filter(m => m.status === "FINISHED");
-        this.results = results.reverse();
-        this.matches = this.results;
+        this.results = results.slice().reverse();
+        this.matches = this.results.slice(0, 10);
         this.fixtures = fixtures;
         this.country = data?.competition?.area?.name;
         this.competition = data?.competition?.name;
+        setTimeout(() => {
+            this.addObserver();
+        }, 1);
+        // need to limit how many matches are on screen at any time...
     }
 };
 </script>
