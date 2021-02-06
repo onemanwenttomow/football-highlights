@@ -169,10 +169,8 @@ export default {
             this.btnText = "checking....";
             this.btnDisabled = true;
             const country = this.area.toLowerCase();
-            console.log(
-                `/.netlify/functions/youtube-data?date=${this.date}&q=${this.query}&country=${country}`
-            );
-            const url = `/.netlify/functions/youtube-data?date=${this.date}&q=${this.query}&country=${country}`;
+            const date = this.resultInfo.utcDate;
+            const url = `/.netlify/functions/youtube-data?date=${date}&q=${this.query}&country=${country}`;
             const response = await fetch(url);
             const results = await response.json();
             console.log("results: ", results);
