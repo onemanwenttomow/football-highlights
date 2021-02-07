@@ -14,7 +14,16 @@ exports.handler = async (event, context) => {
         headers: { "X-Auth-Token": FOOTBALLAPI }
     };
 
-    if (perform === "getResultsByLeage") {
+    if (perform === "getLeagueStandings") {
+        const url = `http://api.football-data.org/v2/competitions/${id}/standings`;
+        const { data } = await axios.get(url, headers);
+        return {
+            statusCode: 200,
+            body: JSON.stringify(data)
+        };
+    }
+
+    if (perform === "getResultsByLeague") {
         const url = `http://api.football-data.org/v2/competitions/${id}/matches`;
         const { data } = await axios.get(url, headers);
         return {

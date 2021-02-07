@@ -42,7 +42,7 @@ export default {
     async mounted() {
         const leagueId = this.$route.params.league;
         const response = await fetch(
-            `/.netlify/functions/football-data?perform=getResultsByLeage&id=${leagueId}`
+            `/.netlify/functions/football-data?perform=getResultsByLeague&id=${leagueId}`
         );
         const data = await response.json();
         const fixtures = data?.matches.filter(m => m.status === "SCHEDULED");
