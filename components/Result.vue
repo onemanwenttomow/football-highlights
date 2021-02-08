@@ -85,6 +85,7 @@
                         :src="
                             `https://img.youtube.com/vi/${videos[0].id}/0.jpg`
                         "
+                        @load="show = true"
                     />
                 </a>
             </div>
@@ -188,9 +189,6 @@ export default {
                 ? "Highlights below"
                 : "Sorry, no highlights yet";
             this.videos = results;
-            setTimeout(() => {
-                this.show = true;
-            }, 150);
         }
     }
 };
