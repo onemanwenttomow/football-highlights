@@ -27,6 +27,8 @@ html {
     margin: 0;
 }
 
+/* maybe witch to using animate-pulse */
+
 .skeleton::after {
     position: absolute;
     top: 0;

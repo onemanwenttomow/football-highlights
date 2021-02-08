@@ -6,7 +6,7 @@
         <div class="slash"></div>
 
         <div class="flex flex-col items-center">
-            <div class="bg-red-700 p-2">
+            <div class="bg-red-700 p-2" @click="show = !show">
                 {{ competition }}
             </div>
             <div class="pb-5">
@@ -66,12 +66,21 @@
             >
                 {{ btnText }}
             </button>
-            <div v-if="videos.length" class="mt-4">
+            <div v-if="videos.length" class="m-auto mt-4">
                 <a
                     :href="`https://www.youtube.com/watch?v=${videos[0].id}`"
                     target="_blank"
                     rel="noopener noreferrer"
+                    class="flex justify-center items-center"
                 >
+                    <transition name="bounce">
+                        <img
+                            src="/youtube-play.svg"
+                            alt="play button"
+                            class="h-32 absolute left-1/2"
+                            v-if="show"
+                        />
+                    </transition>
                     <img
                         :src="
                             `https://img.youtube.com/vi/${videos[0].id}/0.jpg`
@@ -107,7 +116,8 @@ export default {
             homeTeamData: {},
             awayTeamData: {},
             btnText: "Check for Highlights",
-            btnDisabled: false
+            btnDisabled: false,
+            show: false
         };
     },
     watch: {
@@ -178,6 +188,9 @@ export default {
                 ? "Highlights below"
                 : "Sorry, no highlights yet";
             this.videos = results;
+            setTimeout(() => {
+                this.show = true;
+            }, 150);
         }
     }
 };
@@ -199,5 +212,23 @@ export default {
     left: 0;
     background-repeat: no-repeat;
     pointer-events: none;
+}
+
+.bounce-enter-active {
+    animation: bounce-in 0.5s;
+}
+.bounce-leave-active {
+    animation: bounce-in 0.5s reverse;
+}
+@keyframes bounce-in {
+    0% {
+        transform: scale(0);
+    }
+    50% {
+        transform: scale(1.5);
+    }
+    100% {
+        transform: scale(1);
+    }
 }
 </style>
