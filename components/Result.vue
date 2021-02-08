@@ -73,14 +73,13 @@
                     rel="noopener noreferrer"
                     class="flex justify-center items-center"
                 >
-                    <transition name="bounce">
-                        <img
-                            src="/youtube-play.svg"
-                            alt="play button"
-                            class="h-32 absolute left-1/2"
-                            v-if="show"
-                        />
-                    </transition>
+                    <img
+                        src="/youtube-play.svg"
+                        alt="play button"
+                        class="h-24 absolute left-1/2 opacity-0"
+                        v-if="show"
+                        :class="show && 'bounce'"
+                    />
                     <img
                         :src="
                             `https://img.youtube.com/vi/${videos[0].id}/0.jpg`
@@ -212,21 +211,21 @@ export default {
     pointer-events: none;
 }
 
-.bounce-enter-active {
-    animation: bounce-in 0.5s;
-}
-.bounce-leave-active {
-    animation: bounce-in 0.5s reverse;
+.bounce {
+    animation: bounce-in 0.5s ease-in 0.1s 1 normal forwards;
 }
 @keyframes bounce-in {
     0% {
         transform: scale(0);
+        opacity: 0;
     }
     50% {
-        transform: scale(1.5);
+        transform: scale(1.2);
+        opacity: 1;
     }
     100% {
         transform: scale(1);
+        opacity: 1;
     }
 }
 </style>
