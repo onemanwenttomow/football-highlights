@@ -66,8 +66,13 @@
             >
                 {{ btnText }}
             </button>
-            <div v-if="videos.length" class="m-auto mt-4">
+            <div
+                class="m-auto mt-4 hightlights-container flex"
+                :class="resultsSlider ? 'height' : ''"
+            >
+                <div class="min-height"></div>
                 <a
+                    v-if="videos.length"
                     :href="`https://www.youtube.com/watch?v=${videos[0].id}`"
                     target="_blank"
                     rel="noopener noreferrer"
@@ -84,7 +89,7 @@
                         :src="
                             `https://img.youtube.com/vi/${videos[0].id}/0.jpg`
                         "
-                        @load="show = true"
+                        v-if="show"
                     />
                 </a>
             </div>
@@ -117,7 +122,8 @@ export default {
             awayTeamData: {},
             btnText: "Check for Highlights",
             btnDisabled: false,
-            show: false
+            show: false,
+            resultsSlider: false
         };
     },
     watch: {
@@ -175,6 +181,12 @@ export default {
                 t => t.id == this.resultInfo.awayTeam.id
             );
         },
+        slideInImagePreview() {
+            this.resultsSlider = true;
+            setTimeout(() => {
+                this.show = true;
+            }, 500);
+        },
         async getHighlights() {
             this.btnText = "checking....";
             this.btnDisabled = true;
@@ -188,6 +200,7 @@ export default {
                 ? "Highlights below"
                 : "Sorry, no highlights yet";
             this.videos = results;
+            this.slideInImagePreview();
         }
     }
 };
@@ -209,6 +222,23 @@ export default {
     left: 0;
     background-repeat: no-repeat;
     pointer-events: none;
+}
+
+.hightlights-container {
+    max-height: 0px;
+    transition: 0.3s all ease-in;
+}
+
+.no-height {
+    max-height: 0px;
+}
+
+.height {
+    max-height: 350px;
+}
+
+.min-height {
+    min-height: 350px;
 }
 
 .bounce {
