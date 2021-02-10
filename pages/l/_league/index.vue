@@ -7,7 +7,7 @@
         />
         <div v-if="matches.length">
             <div v-for="match in matches" :key="match.utcdate" ref="matchesref">
-                <Result
+                <Match
                     :area="country"
                     :result-info="match"
                     :competition-name="competition"

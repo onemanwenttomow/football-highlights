@@ -16,7 +16,7 @@
             @matches="matches = $event"
         />
         <div v-for="match in matches" :key="match.utcdate" ref="matchesref">
-            <Result :area="teamInfo.area.name" :result-info="match" />
+            <Match :area="teamInfo.area.name" :result-info="match" />
         </div>
     </div>
     <div v-else class="relative">

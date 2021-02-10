@@ -58,42 +58,12 @@
                 </div>
             </div>
         </div>
-        <div v-if="isFixture" class="flex flex-col justify-center">
-            <button
-                class="bg-white text-blue-800 px-4 py-2 mt-8 font-bold uppercase"
-                @click="getHighlights"
-                :disabled="btnDisabled"
-            >
-                {{ btnText }}
-            </button>
-            <div
-                class="m-auto mt-4 hightlights-container flex"
-                :class="resultsSlider ? 'height' : ''"
-            >
-                <div class="min-height"></div>
-                <a
-                    v-if="videos.length"
-                    :href="`https://www.youtube.com/watch?v=${videos[0].id}`"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="flex justify-center items-center"
-                >
-                    <img
-                        src="/youtube-play.svg"
-                        alt="play button"
-                        class="h-24 absolute left-1/2 opacity-0"
-                        v-if="show"
-                        :class="show && 'bounce'"
-                    />
-                    <img
-                        :src="
-                            `https://img.youtube.com/vi/${videos[0].id}/0.jpg`
-                        "
-                        v-if="show"
-                    />
-                </a>
-            </div>
-        </div>
+        <HighlightsArea
+            :isFixture="isFixture"
+            :country="area"
+            :date="resultInfo.utcDate"
+            :query="query"
+        />
     </div>
 </template>
 
@@ -119,11 +89,7 @@ export default {
             videos: [],
             homes: [],
             homeTeamData: {},
-            awayTeamData: {},
-            btnText: "Check for Highlights",
-            btnDisabled: false,
-            show: false,
-            resultsSlider: false
+            awayTeamData: {}
         };
     },
     watch: {
@@ -180,27 +146,6 @@ export default {
             this.awayTeamData = this.teams.find(
                 t => t.id == this.resultInfo.awayTeam.id
             );
-        },
-        slideInImagePreview() {
-            this.resultsSlider = true;
-            setTimeout(() => {
-                this.show = true;
-            }, 500);
-        },
-        async getHighlights() {
-            this.btnText = "checking....";
-            this.btnDisabled = true;
-            const country = this.area.toLowerCase();
-            const date = this.resultInfo.utcDate;
-            const url = `/.netlify/functions/youtube-data?date=${date}&q=${this.query}&country=${country}`;
-            const response = await fetch(url);
-            const results = await response.json();
-            console.log("results: ", results);
-            this.btnText = results.length
-                ? "Highlights below"
-                : "Sorry, no highlights yet";
-            this.videos = results;
-            this.slideInImagePreview();
         }
     }
 };
@@ -222,40 +167,5 @@ export default {
     left: 0;
     background-repeat: no-repeat;
     pointer-events: none;
-}
-
-.hightlights-container {
-    max-height: 0px;
-    transition: 0.3s all ease-in;
-}
-
-.no-height {
-    max-height: 0px;
-}
-
-.height {
-    max-height: 350px;
-}
-
-.min-height {
-    min-height: 350px;
-}
-
-.bounce {
-    animation: bounce-in 0.5s ease-in 0.1s 1 normal forwards;
-}
-@keyframes bounce-in {
-    0% {
-        transform: scale(0);
-        opacity: 0;
-    }
-    50% {
-        transform: scale(1.2);
-        opacity: 1;
-    }
-    100% {
-        transform: scale(1);
-        opacity: 1;
-    }
 }
 </style>
