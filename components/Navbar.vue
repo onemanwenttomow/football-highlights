@@ -24,6 +24,18 @@
                 Fixtures
             </a>
         </li>
+        <li class="flex-auto text-center" v-if="$route.params.league">
+            <a
+                class="uppercase px-5 py-3 block leading-normal text-red-700 bg-white "
+                @click="$router.push({ path: `${$route.params.league}/table` })"
+                :class="{
+                    'text-red-700 bg-white': openTab !== 3,
+                    'text-white bg-red-700': openTab === 3
+                }"
+            >
+                Table
+            </a>
+        </li>
     </ul>
 </template>
 
@@ -31,14 +43,11 @@
 export default {
     props: {
         fixtures: {
-            type: Array,
-            required: true
+            type: Array
         },
         results: {
-            type: Array,
-            required: true
-        },
-        test: {}
+            type: Array
+        }
     },
     data() {
         return {
@@ -50,8 +59,8 @@ export default {
             observer: ""
         };
     },
+
     async mounted() {
-        await this.$nextTick();
         this.addObserver();
     },
     watch: {
@@ -62,7 +71,7 @@ export default {
     },
     methods: {
         async switchTab(num) {
-            this.observer.unobserve(this.currentTarget);
+            this.currentTarget && this.observer.unobserve(this.currentTarget);
             this.openTab = num;
             if (num === 1) {
                 this.fixturesInView = 10;

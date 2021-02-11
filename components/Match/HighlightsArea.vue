@@ -42,7 +42,6 @@
 export default {
     props: {
         isFixture: {
-            type: String,
             required: true
         },
         country: {
