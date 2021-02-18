@@ -1,9 +1,13 @@
 <template>
     <div class="container">
         <nuxt-link to="/l/2021">Premier League</nuxt-link>
+        <nuxt-link to="/l/2021/table">Premier League Table</nuxt-link>
         <nuxt-link to="/l/2002">Bundesliga </nuxt-link>
+        <nuxt-link to="/l/2002/table">Bundesliga Table</nuxt-link>
         <nuxt-link to="/l/2014">La Liga</nuxt-link>
+        <nuxt-link to="/l/2014/table">La Liga Table</nuxt-link>
         <nuxt-link to="/l/2019">Serie A</nuxt-link>
+        <nuxt-link to="/l/2019/table">Serie A Table</nuxt-link>
     </div>
 </template>
 

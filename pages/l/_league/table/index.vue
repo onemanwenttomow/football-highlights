@@ -1,6 +1,5 @@
 <template>
     <div>
-        <h1>Standing</h1>
         <div class="flex justify-center">
             <div class="bg-blue-700 text-white p-2">
                 <div class="flex pb-1 mb-1 border-b-2">
@@ -8,6 +7,7 @@
                     <div class="w-10 text-center">Pl</div>
                     <div class="w-10 text-center">GD</div>
                     <div class="w-10 text-center">Pts</div>
+                    <div class="hidden sm:flex w-32 justify-center">Form</div>
                 </div>
                 <div
                     v-for="{
@@ -16,10 +16,11 @@
                         shortName,
                         points,
                         playedGames,
-                        goalDifference
+                        goalDifference,
+                        form
                     } in table"
                     :key="position"
-                    class="h-10 flex"
+                    :class="`h-10 flex standing _${$route.params.league}`"
                 >
                     <div class="flex items-center w-48">
                         <div class="inline-block text-center w-6">
@@ -30,11 +31,18 @@
                         </div>
                         <h4 class="inline inline-block">{{ shortName }}</h4>
                     </div>
-                    <div class="w-10 text-center">{{ playedGames }}</div>
-                    <div class="w-10 text-center">
+                    <div class="w-10 flex items-center justify-center">
+                        {{ playedGames }}
+                    </div>
+                    <div class="w-10 flex items-center justify-center">
                         {{ goalDifference }}
                     </div>
-                    <div class="w-10 text-center">{{ points }}</div>
+                    <div class="w-10 flex items-center justify-center">
+                        {{ points }}
+                    </div>
+                    <div class="w-32 hidden sm:flex items-center justify-center">
+                        {{ generateForm(form) }}
+                    </div>
                 </div>
             </div>
         </div>
@@ -50,7 +58,7 @@ export default {
             table: []
         };
     },
-    async asyncData({ route, error }) {
+    async asyncData() {
         const teams = await getTeams();
         return {
             teams
@@ -71,6 +79,25 @@ export default {
         });
         console.log("data: ", data?.standings[0].table);
         this.table = table;
+    },
+    methods: {
+        generateForm(form) {
+            return form
+                .replaceAll("W", "🟩")
+                .replaceAll("L", "🟥")
+                .replaceAll("D", "⬜")
+                .replaceAll(",", "");
+        }
     }
 };
 </script>
+
+<style>
+._2021.standing:nth-child(5) {
+    border-bottom-width: 2px;
+}
+._2021.standing:nth-child(18) {
+    border-bottom-width: 2px;
+}
+</style>
+
