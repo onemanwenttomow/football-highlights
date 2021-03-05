@@ -86,8 +86,6 @@ export default {
     },
     data() {
         return {
-            videos: [],
-            homes: [],
             homeTeamData: {},
             awayTeamData: {}
         };
