@@ -1,6 +1,7 @@
 <template>
     <div class="container">
-        <div v-for="{ id, name } in leagues" :key="id">
+        <div v-for="{ id, name, logo } in leagues" :key="id" class="w-32">
+            <img :src="logo" :alt="name">
             <nuxt-link :to="`/l/${id}`">{{ name }}</nuxt-link>
             <br>
             <nuxt-link :to="`/l/${id}`">{{ name }} Table</nuxt-link>
