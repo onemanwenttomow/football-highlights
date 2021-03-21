@@ -1,10 +1,29 @@
 <template>
-    <div class="container">
-        <div v-for="{ id, name, logo } in leagues" :key="id" class="w-32">
-            <img :src="logo" :alt="name">
-            <nuxt-link :to="`/l/${id}`">{{ name }}</nuxt-link>
-            <br>
-            <nuxt-link :to="`/l/${id}`">{{ name }} Table</nuxt-link>
+    <div class="flex flex-wrap justify-center bg-blue-700">
+        <div
+            v-for="{ id, name, logo } in leagues"
+            :key="id"
+            class="w-full sm:w-48 bg-blue-300 p-2 pb-0 mx-8 my-4 sm:m-2 sm:m-10 self-center justify-self-center"
+        >
+            <nuxt-link :to="`/l/${id}`">
+                <img :src="logo" :alt="name" class="h-32 w-48 p-2 mx-auto" />
+            </nuxt-link>
+            <ul class="mb-0 list-none">
+                <nuxt-link :to="`/l/${id}`">
+                    <li
+                        class="text-center text-red-700 bg-white -mx-2 py-2 text-lg uppercase"
+                    >
+                        Results
+                    </li>
+                </nuxt-link>
+                <nuxt-link :to="`/l/${id}/table`">
+                    <li
+                        class="text-center text-white bg-red-700 -mx-2 py-2 text-lg uppercase"
+                    >
+                        Table
+                    </li>
+                </nuxt-link>
+            </ul>
         </div>
     </div>
 </template>
@@ -13,7 +32,6 @@
 import { leagues } from "../constants/constants";
 export default {
     async asyncData() {
-        console.log("leagues: ", leagues);
         return {
             leagues
         };
@@ -27,15 +45,6 @@ export default {
 @apply min-h-screen flex justify-center items-center text-center mx-auto;
 }
 */
-.container {
-    margin: 0 auto;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-}
 
 body {
     font-family: "Quicksand", "Source Sans Pro", -apple-system,

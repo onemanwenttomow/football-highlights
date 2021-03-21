@@ -1,6 +1,6 @@
 <template>
     <div
-        class="min-w-full bg-gray-300 my-6 px-4 text-4xl text-gray-400 relative skeleton"
+        class="min-w-full bg-gray-300 my-6 px-4 text-4xl text-gray-400 relative skeleton overflow-hidden"
     >
         <div class="bg-red-300 w-1/4 m-auto h-8 mb-8"></div>
         <div>
