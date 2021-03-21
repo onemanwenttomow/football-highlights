@@ -1,6 +1,6 @@
 <template>
     <div v-if="matches.length">
-        <div class="flex items-center justify-center">
+        <div class="flex items-center justify-center py-4">
             <h1 class="text-5xl font-bold leading-tight">
                 {{ teamInfo.shortName }}
             </h1>
@@ -10,6 +10,7 @@
                 class="w-12 mx-4"
             />
         </div>
+
         <Navbar
             :fixtures="fixtures"
             :results="results"

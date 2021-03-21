@@ -1,15 +1,24 @@
 <template>
     <div class="container">
-        <nuxt-link to="/l/2021">Premier League</nuxt-link>
-        <nuxt-link to="/l/2021/table">Premier League Table</nuxt-link>
-        <nuxt-link to="/l/2002">Bundesliga </nuxt-link>
-        <nuxt-link to="/l/2002/table">Bundesliga Table</nuxt-link>
-        <nuxt-link to="/l/2014">La Liga</nuxt-link>
-        <nuxt-link to="/l/2014/table">La Liga Table</nuxt-link>
-        <nuxt-link to="/l/2019">Serie A</nuxt-link>
-        <nuxt-link to="/l/2019/table">Serie A Table</nuxt-link>
+        <div v-for="{ id, name } in leagues" :key="id">
+            <nuxt-link :to="`/l/${id}`">{{ name }}</nuxt-link>
+            <br>
+            <nuxt-link :to="`/l/${id}`">{{ name }} Table</nuxt-link>
+        </div>
     </div>
 </template>
+
+<script>
+import { leagues } from "../constants/constants";
+export default {
+    async asyncData() {
+        console.log("leagues: ", leagues);
+        return {
+            leagues
+        };
+    }
+};
+</script>
 
 <style>
 /* Sample `apply` at-rules with Tailwind CSS

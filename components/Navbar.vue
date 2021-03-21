@@ -1,5 +1,5 @@
 <template>
-    <ul class="flex mb-0 list-none flex-wrap pt-3 flex-row justify-center">
+    <ul class="sticky top-0 z-10 flex mb-0 list-none flex-wrap flex-row justify-center">
         <li class="flex-auto text-center">
             <a
                 class="uppercase px-5 py-3 block leading-normal"
