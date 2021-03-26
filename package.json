@@ -16,6 +16,7 @@
     "simple-youtube-api": "^5.2.1"
   },
   "devDependencies": {
+    "@nuxtjs/pwa": "^3.3.5",
     "@nuxtjs/tailwindcss": "^3.4.2"
   }
 }
